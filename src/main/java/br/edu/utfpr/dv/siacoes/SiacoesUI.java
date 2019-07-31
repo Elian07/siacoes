@@ -1,5 +1,6 @@
 ﻿package br.edu.utfpr.dv.siacoes;
 
+import br.edu.utfpr.dv.siacoes.Session;
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;

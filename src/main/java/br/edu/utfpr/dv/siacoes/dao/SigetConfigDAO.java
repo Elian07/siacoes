@@ -9,9 +9,51 @@ import br.edu.utfpr.dv.siacoes.log.UpdateEvent;
 import br.edu.utfpr.dv.siacoes.model.SigetConfig;
 import br.edu.utfpr.dv.siacoes.model.SigetConfig.AttendanceFrequency;
 import br.edu.utfpr.dv.siacoes.model.SigetConfig.SupervisorFilter;
+import java.sql.DriverManager;
+import lombok.extern.java.Log;
 
-public class SigetConfigDAO {
 
+@Log
+public class SigetConfigDAO extends TemplateDAO<SigetConfig> {
+    
+    
+    
+    public SigetConfigDAO(){
+        try(Connection conn = DriverManager.getConnection("jdbc:derby:memory:database;create=true")){
+            
+            log.info("Criando tabela SigetConfig...");
+            conn.createStatement().executeUpdate(
+            "CREATE TABLE SigetConfig ("
+            +  "minimumScore double," 
+            +  "registerProposal boolean," 
+            +  "showgradestostudent boolean," 
+            +  "supervisorfilter SupervisorFilter," 
+            +  "cosupervisorfilter SupervisorFilter," 
+            +  "supervisorIndication int," 
+            +  "maxTutoredStage2 int," 
+            +  "requestFinalDocumentStage1 boolean," 
+            +  "repositoryLink String," 
+            +  "supervisorJuryRequest boolean,"
+            +  "supervisorAgreement boolean," 
+            +  "supervisorJuryAgreement boolean," 
+            +  "validateAttendances boolean," 
+            +  "attendanceFrequency AttendanceFrequency," 
+            +  "maxfilesize int," 
+            +  "minimumJuryMembers int,"
+            +  "minimumJurySubstitutes int," 
+            +  "jurytimestage1 int," 
+            +  "jurytimestage2 int," 
+            +  "supervisorAssignsGrades boolean," 
+            +  "idDepartment int)");
+            
+            log.info ( " Tabela criada com sucesso! " );
+
+        } catch ( SQLException ex) {
+            ex.printStackTrace ();
+        }
+    }
+    
+    /*
 	public SigetConfig findByDepartment(int idDepartment) throws SQLException{
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -118,5 +160,5 @@ public class SigetConfigDAO {
 		
 		return config;
 	}
-	
+	*/
 }

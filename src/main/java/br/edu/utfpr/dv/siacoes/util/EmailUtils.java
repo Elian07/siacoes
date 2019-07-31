@@ -1,5 +1,6 @@
 ﻿package br.edu.utfpr.dv.siacoes.util;
 
+import br.edu.utfpr.dv.siacoes.Session;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.security.GeneralSecurityException;
