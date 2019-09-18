@@ -8,9 +8,39 @@ import java.sql.SQLException;
 import br.edu.utfpr.dv.siacoes.log.UpdateEvent;
 import br.edu.utfpr.dv.siacoes.model.SigesConfig;
 import br.edu.utfpr.dv.siacoes.model.SigetConfig.SupervisorFilter;
+import java.sql.DriverManager;
+import lombok.extern.java.Log;
 
-public class SigesConfigDAO {
+@Log
+public class SigesConfigDAO extends TemplateDAO<SigesConfig> {
 
+    public SigesConfigDAO(){
+        try(Connection conn = DriverManager.getConnection("jdbc:derby:memory:database;create=true")){
+            
+            log.info("Criando tabela SigesConfig...");
+            conn.createStatement().executeUpdate(
+            "CREATE TABLE SigesConfig ("
+            + "minimumScore double," 
+            + "supervisorPonderosity double," 
+            + "companySupervisorPonderosity double," 
+            + "showgradestostudent boolean,"
+            + "supervisorfilter SupervisorFilter,"
+            + "supervisorFillJuryForm boolean," 
+            + "maxfilesize int," 
+            + "jurytime int ," 
+            + "idDepartment int");
+            
+            log.info ( " Tabela criada com sucesso! " );
+
+        } catch ( SQLException ex) {
+            ex.printStackTrace ();
+        }
+    }
+    
+    
+    
+    
+    /*
 	public SigesConfig findByDepartment(int idDepartment) throws SQLException{
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -91,5 +121,5 @@ public class SigesConfigDAO {
 		
 		return config;
 	}
-	
+	*/
 }

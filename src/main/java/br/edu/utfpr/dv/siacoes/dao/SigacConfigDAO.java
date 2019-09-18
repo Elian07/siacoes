@@ -7,9 +7,34 @@ import java.sql.SQLException;
 
 import br.edu.utfpr.dv.siacoes.log.UpdateEvent;
 import br.edu.utfpr.dv.siacoes.model.SigacConfig;
+import java.sql.DriverManager;
+import lombok.extern.java.Log;
 
-public class SigacConfigDAO {
+
+@Log
+public class SigacConfigDAO extends TemplateDAO<SigacConfig> {
 	
+    public SigacConfigDAO(){
+        try(Connection conn = DriverManager.getConnection("jdbc:derby:memory:database;create=true")){
+            
+            log.info("Criando tabela SigacConfig...");
+            conn.createStatement().executeUpdate(
+            "CREATE TABLE sigacconfig ("
+            + "minimumScore double," 
+            + "maxfilesize int," 
+            + "idDepartment int");
+            
+            log.info ( " Tabela criada com sucesso! " );
+
+        } catch ( SQLException ex) {
+            ex.printStackTrace ();
+        }
+    }
+    
+    
+    
+    
+    /*
 	public SigacConfig findByDepartment(int idDepartment) throws SQLException{
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -78,5 +103,5 @@ public class SigacConfigDAO {
 		
 		return config;
 	}
-
+ */
 }
